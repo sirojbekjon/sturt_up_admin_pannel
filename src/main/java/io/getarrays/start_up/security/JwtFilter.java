@@ -1,6 +1,6 @@
 package io.getarrays.start_up.security;
 
-import io.getarrays.start_up.service.UserServiceImpl;
+import io.getarrays.start_up.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +23,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Lazy
     @Autowired
-    UserServiceImpl userService;
+    TeacherService teacherService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -34,7 +34,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authorization != null && authorization.startsWith("Bearer")){
             String userNameFromToken = jwtProvider.getUserNameFromToken(authorization.substring(7));
             if (userNameFromToken!= null){
-                UserDetails userDetails = userService.loadUserByUsername(userNameFromToken);
+                UserDetails userDetails = teacherService.loadUserByUsername(userNameFromToken);
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
             }

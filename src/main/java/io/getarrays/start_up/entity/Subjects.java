@@ -25,7 +25,7 @@ public class Subjects extends AbstractEntity {
     private TypeSubject typeSubject;
 
     @ManyToOne
-    private Teachers teacher;
+    private Teacher teacher;
 
     private Integer views;
 
@@ -44,7 +44,7 @@ public class Subjects extends AbstractEntity {
     private FileUpload fileUpload;
 
 
-    public Subjects(String name, TypeSubject typeSubject, Teachers teacher, String language, String about, FileUpload fileUpload) {
+    public Subjects(String name, TypeSubject typeSubject, Teacher teacher, String language, String about, FileUpload fileUpload) {
         this.name = name;
         this.typeSubject = typeSubject;
         this.teacher = teacher;

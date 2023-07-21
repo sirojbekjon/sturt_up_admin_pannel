@@ -37,8 +37,9 @@ public class JwtProvider {
             return username;
 
         }catch (Exception e){
-            return null;
+            e.getMessage();
         }
+        return "Not found";
     }
 
 

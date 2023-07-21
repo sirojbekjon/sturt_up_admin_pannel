@@ -1,8 +1,7 @@
 package io.getarrays.start_up.config;
 
 import io.getarrays.start_up.security.JwtFilter;
-import io.getarrays.start_up.service.UserServiceImpl;
-import io.jsonwebtoken.Jwt;
+import io.getarrays.start_up.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Lazy
     @Autowired
-    UserServiceImpl userServiceImpl;
+    TeacherService teacherService;
 
     @Autowired
     JwtFilter jwtFilter;
@@ -40,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userServiceImpl)
+                .userDetailsService(teacherService)
                 .passwordEncoder(passwordEncoder());
     }
 

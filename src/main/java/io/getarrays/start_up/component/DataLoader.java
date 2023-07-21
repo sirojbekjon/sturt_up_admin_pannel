@@ -4,7 +4,7 @@ import io.getarrays.start_up.entity.Teacher;
 import io.getarrays.start_up.entity.enums.Permession;
 import io.getarrays.start_up.entity.Role;
 import io.getarrays.start_up.repository.RoleRepository;
-import io.getarrays.start_up.repository.UserRepository;
+import io.getarrays.start_up.repository.TeachersRepository;
 import io.getarrays.start_up.utils.Appconstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,8 @@ public class DataLoader implements CommandLineRunner {
     RoleRepository roleRepository;
 
     @Autowired
-    UserRepository userRepository;
+    TeachersRepository teachersRepository;
+
 
 
     @Autowired
@@ -48,27 +49,22 @@ public class DataLoader implements CommandLineRunner {
                     Appconstants.USER,
                     Arrays.asList(ADD_POST,VIEW_POST)
             ));
-            userRepository.save(new Teacher(
+            teachersRepository.save(new Teacher(
                     "superAdmin",
                     "superAdmin",
                     passwordEncoder.encode("superAdmin"),
                     superAdmin,
                     true
             ));
-            userRepository.save(new Teacher(
+
+            teachersRepository.save(new Teacher(
                "admin",
                "admin",
                passwordEncoder.encode("admin"),
                admin,
                true
             ));
-            userRepository.save(new Teacher(
-                    "user",
-                    "user",
-                    passwordEncoder.encode("user"),
-                    user,
-                    true
-            ));
+
         }
 
     }

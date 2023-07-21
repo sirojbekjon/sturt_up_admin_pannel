@@ -2,6 +2,7 @@ package io.getarrays.start_up.service;
 
 import io.getarrays.start_up.entity.FileUpload;
 import io.getarrays.start_up.entity.Subjects;
+import io.getarrays.start_up.entity.Teacher;
 import io.getarrays.start_up.entity.TypeSubject;
 import io.getarrays.start_up.payload.SubjectDto;
 import io.getarrays.start_up.repository.FileUploadRepository;
@@ -33,11 +34,11 @@ public class SubjectService {
 
     public HttpEntity<?> addSubject(SubjectDto subjectDto) {
         Optional<TypeSubject> optionalTypeSubject = typeSubjectRepository.findById(subjectDto.getTypeSubjectId());
-        Optional<Teachers> optionalTeachers = teachersRepository.findById(subjectDto.getTeacherId());
+        Optional<Teacher> optionalTeachers = teachersRepository.findById(subjectDto.getTeacherId());
         Optional<FileUpload> optionalFileUpload = fileUploadRepository.findById(subjectDto.getFileUploadId());
         if (optionalTypeSubject.isPresent() && optionalTeachers.isPresent() && optionalFileUpload.isPresent()){
             TypeSubject typeSubject = optionalTypeSubject.get();
-            Teachers teachers = optionalTeachers.get();
+            Teacher teachers = optionalTeachers.get();
             FileUpload fileUpload = optionalFileUpload.get();
             Subjects subjects1 = new Subjects(
                     subjectDto.getName(),

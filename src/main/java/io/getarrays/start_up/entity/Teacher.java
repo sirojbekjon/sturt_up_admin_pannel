@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "Users")
+@Table(name = "teachers")
 @Entity
 @Data
 @NoArgsConstructor
@@ -48,21 +48,26 @@ public class Teacher extends AbstractEntity implements UserDetails {
     private boolean isCredentialsNonExpired = true;
     private boolean enabled=true;
 
-    public Teacher(String name, String username, String lastName, String password, Role role, boolean enabled) {
+    public Teacher(String name, String username, String password, Role role, boolean enabled) {
         this.name = name;
         this.username = username;
-        this.lastName = lastName;
         this.password = password;
         this.role = role;
         this.enabled = enabled;
     }
 
-    public Teacher(String name, String username, String password, Role roleId, Boolean enabled) {
+
+    public Teacher(String name, String sureName, String lastName, String phoneNumber, String username, String password, String about, FileUpload fileUpload, List<Subjects> subjectsList, Role role) {
         this.name = name;
+        this.sureName = sureName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
         this.username = username;
         this.password = password;
-        this.role = roleId;
-        this.enabled = enabled;
+        this.about = about;
+        this.fileUpload = fileUpload;
+        this.subjectsList = subjectsList;
+        this.role = role;
     }
 
     @Override
