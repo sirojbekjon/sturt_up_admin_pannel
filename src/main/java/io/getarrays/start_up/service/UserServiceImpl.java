@@ -1,7 +1,7 @@
 package io.getarrays.start_up.service;
 
 import io.getarrays.start_up.entity.Role;
-import io.getarrays.start_up.entity.User;
+import io.getarrays.start_up.entity.Teacher;
 import io.getarrays.start_up.payload.Userdto;
 import io.getarrays.start_up.repository.RoleRepository;
 import io.getarrays.start_up.repository.UserRepository;
@@ -39,15 +39,15 @@ public class UserServiceImpl implements UserDetailsService {
     public HttpEntity<?> editUser(Long id, Userdto userdto) {
         Optional<Role> optionalRole = roleRepository.findById(id);
         Role role = optionalRole.get();
-        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<Teacher> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()){
-            User user = optionalUser.get();
-            user.setName(userdto.getName());
-            user.setLastName(userdto.getLastName());
-            user.setUsername(userdto.getUsername());
-            user.setPassword(passwordEncoder.encode(userdto.getPassword()));
-            user.setRole(role);
-            User save = userRepository.save(user);
+            Teacher teacher = optionalUser.get();
+            teacher.setName(userdto.getName());
+            teacher.setLastName(userdto.getLastName());
+            teacher.setUsername(userdto.getUsername());
+            teacher.setPassword(passwordEncoder.encode(userdto.getPassword()));
+            teacher.setRole(role);
+            Teacher save = userRepository.save(teacher);
             return ResponseEntity.status(200).body(save);
         }else {
             return ResponseEntity.status(409).body("User not found");

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,13 +19,17 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends AbstractEntity implements UserDetails {
+public class Teacher extends AbstractEntity implements UserDetails {
 
     private String name;
-    private String username;
+    private String sureName;
     private String lastName;
+    private String phoneNumber;
+    private String username;
     private String password;
-    private String emailCode;
+
+    @Column(columnDefinition = "TEXT")
+    private String about;
 
     @ManyToOne
     private FileUpload fileUpload;
@@ -41,20 +46,18 @@ public class User extends AbstractEntity implements UserDetails {
     private boolean isAccountNonExpired = true;
     private boolean isAccountNonLocked = true;
     private boolean isCredentialsNonExpired = true;
-    private boolean enabled;
+    private boolean enabled=true;
 
-
-    public User(String name, String username, String lastName, String password, String emailCode, Role role, boolean enabled) {
+    public Teacher(String name, String username, String lastName, String password, Role role, boolean enabled) {
         this.name = name;
         this.username = username;
         this.lastName = lastName;
         this.password = password;
-        this.emailCode = emailCode;
         this.role = role;
         this.enabled = enabled;
     }
 
-    public User(String name, String username, String password, Role roleId, Boolean enabled) {
+    public Teacher(String name, String username, String password, Role roleId, Boolean enabled) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -74,3 +77,7 @@ public class User extends AbstractEntity implements UserDetails {
         return grantedAuthorities;
     }
 }
+
+
+
+

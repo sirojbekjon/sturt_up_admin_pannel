@@ -1,8 +1,8 @@
 package io.getarrays.start_up.component;
 
+import io.getarrays.start_up.entity.Teacher;
 import io.getarrays.start_up.entity.enums.Permession;
 import io.getarrays.start_up.entity.Role;
-import io.getarrays.start_up.entity.User;
 import io.getarrays.start_up.repository.RoleRepository;
 import io.getarrays.start_up.repository.UserRepository;
 import io.getarrays.start_up.utils.Appconstants;
@@ -48,21 +48,21 @@ public class DataLoader implements CommandLineRunner {
                     Appconstants.USER,
                     Arrays.asList(ADD_POST,VIEW_POST)
             ));
-            userRepository.save(new User(
+            userRepository.save(new Teacher(
                     "superAdmin",
                     "superAdmin",
                     passwordEncoder.encode("superAdmin"),
                     superAdmin,
                     true
             ));
-            userRepository.save(new User(
+            userRepository.save(new Teacher(
                "admin",
                "admin",
                passwordEncoder.encode("admin"),
                admin,
                true
             ));
-            userRepository.save(new User(
+            userRepository.save(new Teacher(
                     "user",
                     "user",
                     passwordEncoder.encode("user"),

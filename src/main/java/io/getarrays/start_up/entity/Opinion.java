@@ -12,7 +12,7 @@ public class Opinion extends AbstractEntity {
     private String discuss;
 
     @OneToMany
-    private User user;
+    private Teacher teacher;
 
     @ManyToOne
     private Subjects subjects;

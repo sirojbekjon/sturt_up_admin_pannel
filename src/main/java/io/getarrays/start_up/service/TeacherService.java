@@ -1,7 +1,6 @@
 package io.getarrays.start_up.service;
 
 import io.getarrays.start_up.entity.FileUpload;
-import io.getarrays.start_up.entity.Teachers;
 import io.getarrays.start_up.payload.TeachersDto;
 import io.getarrays.start_up.repository.FileUploadRepository;
 import io.getarrays.start_up.repository.SubjectRepository;

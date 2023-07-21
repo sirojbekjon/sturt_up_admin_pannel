@@ -1,6 +1,6 @@
 package io.getarrays.start_up.controller;
 
-import io.getarrays.start_up.entity.User;
+import io.getarrays.start_up.entity.Teacher;
 import io.getarrays.start_up.payload.LoginDto;
 import io.getarrays.start_up.payload.Userdto;
 import io.getarrays.start_up.repository.UserRepository;
@@ -44,8 +44,8 @@ public class AuthController {
     public HttpEntity<?>loginToSystem(@RequestBody  LoginDto loginDto){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDto.getUsername(),loginDto.getPassword()));
-        User user = (User)authentication.getPrincipal();
-        String token = jwtProvider.generateToken(user.getUsername(), user.getRole());
+        Teacher teacher = (Teacher)authentication.getPrincipal();
+        String token = jwtProvider.generateToken(teacher.getUsername(), teacher.getRole());
         return ResponseEntity.status(200).body(token);
     }
 

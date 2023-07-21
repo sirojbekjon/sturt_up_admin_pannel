@@ -1,6 +1,6 @@
 package io.getarrays.start_up.service;
 
-import io.getarrays.start_up.entity.User;
+import io.getarrays.start_up.entity.Teacher;
 import io.getarrays.start_up.payload.Userdto;
 import io.getarrays.start_up.repository.RoleRepository;
 import io.getarrays.start_up.repository.UserRepository;
@@ -39,7 +39,7 @@ public class AuthService {
         try {
             boolean b = userRepository.existsByUsername(userdto.getUsername());
             if (!b) {
-                User user = new User(
+                Teacher teacher = new Teacher(
                         userdto.getName(),
                         userdto.getUsername(),
                         userdto.getLastName(),
@@ -48,8 +48,8 @@ public class AuthService {
                         roleRepository.findByName("USER"),
                         false
                 );
-                userRepository.save(user);
-                return ResponseEntity.status(202).body(user);
+                userRepository.save(teacher);
+                return ResponseEntity.status(202).body(teacher);
             }
         }
         catch (Exception e){

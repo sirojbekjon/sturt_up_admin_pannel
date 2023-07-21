@@ -1,6 +1,6 @@
 package io.getarrays.start_up.controller;
 
-import io.getarrays.start_up.entity.User;
+import io.getarrays.start_up.entity.Teacher;
 import io.getarrays.start_up.payload.Userdto;
 import io.getarrays.start_up.repository.UserRepository;
 import io.getarrays.start_up.service.UserServiceImpl;
@@ -37,7 +37,7 @@ public class UserController {
 
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<Teacher>> getUsers() {
         return ResponseEntity.ok().body(userRepository.findAll());
    }
 

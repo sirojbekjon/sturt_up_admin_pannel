@@ -1,6 +1,6 @@
 package io.getarrays.start_up.entity.template;
 
-import io.getarrays.start_up.entity.User;
+import io.getarrays.start_up.entity.Teacher;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -9,7 +9,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.UUID;
 
 @MappedSuperclass
 @Data
@@ -29,10 +28,10 @@ public abstract class AbstractEntity {
 
     @CreatedBy
     @ManyToOne(fetch = FetchType.LAZY)
-    private User createdBy;
+    private Teacher createdBy;
 
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
-    private User updatedBy;
+    private Teacher updatedBy;
 
 }
