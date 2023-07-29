@@ -30,12 +30,13 @@ public class QuestionController {
     public HttpEntity<?> addQuestion(@RequestBody MultipartFile file){
 
         Workbook workbook = null;
-        Question question = new Question();
+
         try {
             workbook = WorkbookFactory.create(file.getInputStream());
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rows = sheet.iterator();
             while (rows.hasNext()) {
+                Question question = new Question();
                 Row row = rows.next();
                 Iterator<Cell> cells = row.cellIterator();
                 while (cells.hasNext()) {
@@ -79,6 +80,6 @@ public class QuestionController {
                 }
             }
         }
-        return ResponseEntity.status(202).body(question.getId());
+        return ResponseEntity.status(202).body("Savollar saqlandi");
     }
 }
