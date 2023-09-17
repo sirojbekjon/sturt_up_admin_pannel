@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
@@ -13,17 +14,17 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Entity
 public class Question extends AbstractEntity {
-
+    @Column(columnDefinition = "Text")
     private String text;
     private String keyA;
     private String keyB;
     private String keyC;
     private String keyD;
     private String ansverKey;
-
     @ManyToOne
     private Subjects subject;
-
     @ManyToOne
-    private ThemeSubject themeSubject;
+    private Teacher teacher;
+    @ManyToOne
+    private PartOfTheme partOfTheme;
 }

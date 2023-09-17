@@ -4,8 +4,9 @@ import io.getarrays.start_up_admin.entity.template.AbstractEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.awt.*;
 
 @Data
 @Entity
@@ -13,6 +14,7 @@ import java.awt.*;
 @NoArgsConstructor
 public class AboutUs extends AbstractEntity {
 
-    private TextArea text;
+    @Column(columnDefinition = "Text")
+    private String text;
 
 }

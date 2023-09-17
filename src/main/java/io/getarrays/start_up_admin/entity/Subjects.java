@@ -17,18 +17,15 @@ public class Subjects extends AbstractEntity {
 
     @Column(nullable = false)
     private String name;
-
     @ManyToOne
     private TypeSubject typeSubject;
-
-    @ManyToOne
-    private Teacher teacher;
 
     private Integer views;
 
     private String language;
 
     private Integer courseCount;
+    private String price;
 
     private Integer themeCount;
 
@@ -41,11 +38,14 @@ public class Subjects extends AbstractEntity {
     private FileUpload fileUpload;
 
 
-    public Subjects(String name, TypeSubject typeSubject, Teacher teacher, String language, String about, FileUpload fileUpload) {
+    public Subjects(String name, TypeSubject typeSubject, String language, Integer courseCount, String price, Integer themeCount, Integer questionCount, String about, FileUpload fileUpload) {
         this.name = name;
         this.typeSubject = typeSubject;
-        this.teacher = teacher;
         this.language = language;
+        this.courseCount = courseCount;
+        this.price = price;
+        this.themeCount = themeCount;
+        this.questionCount = questionCount;
         this.about = about;
         this.fileUpload = fileUpload;
     }

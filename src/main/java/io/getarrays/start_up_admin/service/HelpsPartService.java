@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,7 @@ public class HelpsPartService {
             HelpsPart helpsPart = new HelpsPart(
                     helpsPartDto.getText(),
                     optionalHelpsType.get(),
-                    (List<FileUpload>) optionalFileUpload.get()
+                    optionalFileUpload.get()
             );
             HelpsPart saved = helpsPartRepository.save(helpsPart);
             return ResponseEntity.status(200).body(saved + " Successfully");
@@ -61,7 +62,7 @@ public class HelpsPartService {
             HelpsPart helpsPart = helpsPartOptional.get();
             helpsPart.setText(helpsPartDto.getText());
             helpsPart.setHelpsType(optionalHelpsType.get());
-            helpsPart.setFileUpload((List<FileUpload>) optionalFileUpload.get());
+            helpsPart.setFileUpload(optionalFileUpload.get());
             HelpsPart edited = helpsPartRepository.save(helpsPart);
             return ResponseEntity.status(200).body(edited);
         }

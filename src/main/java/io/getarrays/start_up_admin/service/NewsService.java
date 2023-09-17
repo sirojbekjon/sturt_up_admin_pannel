@@ -29,7 +29,7 @@ public class NewsService {
             News news = new News(
                     newsDto.getName(),
                     newsDto.getText(),
-                    (List<FileUpload>) fileUpload
+                    fileUpload
             );
             News save = newsRepository.save(news);
             return ResponseEntity.status(200).body(save);
@@ -50,7 +50,7 @@ public class NewsService {
 
             news.setName(newsDto.getName());
             news.setText(newsDto.getText());
-            news.setFileUploadList((List<FileUpload>) fileUpload);
+            news.setFileUploadList(fileUpload);
             News savedNews = newsRepository.save(news);
             return ResponseEntity.status(200).body(savedNews + " saved successfully");
         }return ResponseEntity.status(404).body("Not Found");

@@ -5,6 +5,7 @@ import io.getarrays.start_up_admin.repository.FooterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class FooterController {
 
     @Autowired
     FooterRepository footerRepository;
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @PostMapping("/add")
     public HttpEntity<?> addFooter(@RequestBody Footer footer){
         Footer newFooter = new Footer(
@@ -30,13 +31,13 @@ public class FooterController {
         Footer save = footerRepository.save(newFooter);
         return ResponseEntity.status(202).body(save+" saved successfully");
     }
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @GetMapping("/get")
     public HttpEntity<?> getFooter(){
         List<Footer> footerList = footerRepository.findAll();
         return ResponseEntity.status(202).body(footerList);
     }
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @PutMapping("/edit/{id}")
     public HttpEntity<?> editFooter(@PathVariable Long id,@RequestBody Footer footer){
         Optional<Footer> optionalFooter = footerRepository.findById(id);
@@ -53,7 +54,7 @@ public class FooterController {
         }
         return ResponseEntity.status(404).body("Not Found");
     }
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteFooter(@PathVariable Long id){
         footerRepository.deleteById(id);

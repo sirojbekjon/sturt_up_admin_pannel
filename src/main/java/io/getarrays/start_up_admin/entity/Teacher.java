@@ -1,5 +1,6 @@
 package io.getarrays.start_up_admin.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.getarrays.start_up_admin.entity.enums.Permession;
 import io.getarrays.start_up_admin.entity.template.AbstractEntity;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class Teacher extends AbstractEntity implements UserDetails {
     private String lastName;
     private String phoneNumber;
     private String username;
+
+    @JsonIgnore
     private String password;
 
     @Column(columnDefinition = "TEXT")
@@ -34,18 +37,24 @@ public class Teacher extends AbstractEntity implements UserDetails {
     @ManyToOne
     private FileUpload fileUpload;
 
+    @JsonIgnore
     private String type;
+    @JsonIgnore
     private String type2;
 
-    @OneToMany
-    private List<Subjects> subjectsList;
+    @ManyToOne
+    private Subjects subject;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
 
+    @JsonIgnore
     private boolean isAccountNonExpired = true;
+    @JsonIgnore
     private boolean isAccountNonLocked = true;
+    @JsonIgnore
     private boolean isCredentialsNonExpired = true;
+    @JsonIgnore
     private boolean enabled=true;
 
     public Teacher(String name, String username, String password, Role role, boolean enabled) {
@@ -57,7 +66,7 @@ public class Teacher extends AbstractEntity implements UserDetails {
     }
 
 
-    public Teacher(String name, String sureName, String lastName, String phoneNumber, String username, String password, String about, FileUpload fileUpload, List<Subjects> subjectsList, Role role) {
+    public Teacher(String name, String sureName, String lastName, String phoneNumber, String username, String password, String about, FileUpload fileUpload, Subjects subject, Role role) {
         this.name = name;
         this.sureName = sureName;
         this.lastName = lastName;
@@ -66,7 +75,7 @@ public class Teacher extends AbstractEntity implements UserDetails {
         this.password = password;
         this.about = about;
         this.fileUpload = fileUpload;
-        this.subjectsList = subjectsList;
+        this.subject = subject;
         this.role = role;
     }
 

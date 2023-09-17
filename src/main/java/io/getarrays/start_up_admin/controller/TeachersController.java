@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TeachersController {
 
-
     private final TeacherService teacherService;
-
 
     @PreAuthorize(value = "hasAuthority('ADD_ROLE')")
     @PostMapping("/add")
     public HttpEntity<?> addTeacher(@RequestBody TeachersDto teachersDto){
         return teacherService.addTeacher(teachersDto);
     }
-
+    @PreAuthorize("hasAuthority('ADD_POST')")
     @GetMapping("/get/{id}")
     public HttpEntity<?> getTeacher(@PathVariable Long id){
         return teacherService.getTeacherById(id);

@@ -7,9 +7,12 @@ public class SubjectDto {
 
     private String name;
     private Long typeSubjectId;
-    private Long teacherId;
     private String language;
     private String about;
     private Long fileUploadId;
+    private Integer courseCount;
+    private String price;
+    private Integer themeCount;
+    private Integer questionCount;
 
 }

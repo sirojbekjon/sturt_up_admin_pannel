@@ -1,14 +1,8 @@
 package io.getarrays.start_up_admin.service;
 
-import io.getarrays.start_up_admin.entity.FileUpload;
-import io.getarrays.start_up_admin.entity.Subjects;
-import io.getarrays.start_up_admin.entity.Teacher;
-import io.getarrays.start_up_admin.entity.TypeSubject;
+import io.getarrays.start_up_admin.entity.*;
 import io.getarrays.start_up_admin.payload.SubjectDto;
-import io.getarrays.start_up_admin.repository.FileUploadRepository;
-import io.getarrays.start_up_admin.repository.SubjectRepository;
-import io.getarrays.start_up_admin.repository.TeachersRepository;
-import io.getarrays.start_up_admin.repository.TypeSubjectRepository;
+import io.getarrays.start_up_admin.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -32,19 +26,23 @@ public class SubjectService {
     @Autowired
     FileUploadRepository fileUploadRepository;
 
+    @Autowired
+    ThemeSubjectRepository themeSubjectRepository;
+
     public HttpEntity<?> addSubject(SubjectDto subjectDto) {
         Optional<TypeSubject> optionalTypeSubject = typeSubjectRepository.findById(subjectDto.getTypeSubjectId());
-        Optional<Teacher> optionalTeachers = teachersRepository.findById(subjectDto.getTeacherId());
         Optional<FileUpload> optionalFileUpload = fileUploadRepository.findById(subjectDto.getFileUploadId());
-        if (optionalTypeSubject.isPresent() && optionalTeachers.isPresent() && optionalFileUpload.isPresent()){
+        if (optionalTypeSubject.isPresent() && optionalFileUpload.isPresent()){
             TypeSubject typeSubject = optionalTypeSubject.get();
-            Teacher teachers = optionalTeachers.get();
             FileUpload fileUpload = optionalFileUpload.get();
             Subjects subjects1 = new Subjects(
                     subjectDto.getName(),
                     typeSubject,
-                    teachers,
                     subjectDto.getLanguage(),
+                    subjectDto.getCourseCount(),
+                    subjectDto.getPrice(),
+                    subjectDto.getThemeCount(),
+                    subjectDto.getQuestionCount(),
                     subjectDto.getAbout(),
                     fileUpload
             );
@@ -61,14 +59,16 @@ public class SubjectService {
     }
 
 
-    public HttpEntity<?> getSubjectById(Long id) {
-        Optional<Subjects> optionalSubjects = subjectRepository.findById(id);
-        if (optionalSubjects.isPresent()){
-            Subjects subject = optionalSubjects.get();
-            return ResponseEntity.status(202).body(subject);
-        }else {
-            return ResponseEntity.status(404).body("Not Found");
+    public HttpEntity<?> getSubjectById(Long id, Teacher teacher) {
+        if (teacher.getSubject().getId() == id) {
+            List<ThemeSubject> themeSubjectList = themeSubjectRepository.findBySubjectId(id);
+            if (!themeSubjectList.isEmpty()) {
+                return ResponseEntity.status(202).body(themeSubjectList);
+            } else {
+                return ResponseEntity.status(404).body("Not Found");
+            }
         }
+        return ResponseEntity.status(409).body("Not found");
     }
 
 
@@ -83,5 +83,14 @@ public class SubjectService {
             Subjects savedSubject = subjectRepository.save(subjects);
             return ResponseEntity.status(202).body(savedSubject +" edit Successfully");
         }return ResponseEntity.status(404).body("Not Found");
+    }
+
+    public HttpEntity<?> deleteById(Long id) {
+        subjectRepository.deleteById(id);
+        Optional<Subjects> optionalSubjects = subjectRepository.findById(id);
+        if (!optionalSubjects.isPresent()){
+            return ResponseEntity.status(202).body("deleted");
+        }
+        return ResponseEntity.status(409).body("Not deleted");
     }
 }

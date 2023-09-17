@@ -16,9 +16,12 @@ import javax.persistence.ManyToOne;
 public class ThemeSubject extends AbstractEntity {
 
     @Column(nullable = false)
+    private Integer number;
+    @Column(nullable = false)
     private String name;
-
     @ManyToOne
-    private Subjects subjects;
+    private Subjects subject;
+    @ManyToOne
+    private Teacher teacher;
 
 }

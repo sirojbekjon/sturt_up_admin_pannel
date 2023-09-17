@@ -5,15 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.awt.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Footer extends AbstractEntity {
-    private TextArea text;
+    @Column(columnDefinition = "Text")
+    private String text;
     private String telegram;
     private String instagram;
     private String youtube;

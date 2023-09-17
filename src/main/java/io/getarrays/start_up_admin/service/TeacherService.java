@@ -18,34 +18,24 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TeacherService implements UserDetailsService {
-
     private final TeachersRepository teachersRepository;
     private final SubjectRepository subjectRepository;
     private final FileUploadRepository fileUploadRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-
     public HttpEntity<?> addTeacher(TeachersDto teachersDto) {
         try {
-            List<Subjects> subjects = new ArrayList<>();
-
-            for (Long subject : teachersDto.getSubjects()) {
-                Optional<Subjects> optionalSubjects = subjectRepository.findById(subject);
-                Subjects newsubject = optionalSubjects.get();
-                subjects.add(newsubject);
-            }
-
+            Optional<Subjects> optionalSubjects = subjectRepository.findById(teachersDto.getSubject());
             Optional<FileUpload> optionalFileUpload = fileUploadRepository.findById(teachersDto.getFilePhotoId());
             Optional<Role> optionalRole = roleRepository.findById(teachersDto.getRole());
-            if (optionalFileUpload.isPresent() && optionalRole.isPresent()) {
+            if (optionalFileUpload.isPresent() && optionalRole.isPresent() && optionalRole.isPresent()) {
+                Subjects subjects = optionalSubjects.get();
                 Role role = optionalRole.get();
                 Teacher teachers = new Teacher(
                 teachersDto.getName(),
@@ -58,7 +48,6 @@ public class TeacherService implements UserDetailsService {
                 optionalFileUpload.get(),
                 subjects,
                 role);
-
                 return ResponseEntity.status(200).body(teachers);
             }
         }
@@ -89,20 +78,14 @@ public class TeacherService implements UserDetailsService {
     //qayta mapped qilish kerak
     public HttpEntity<?> editTeacher(Long id, TeachersDto teachersDto) {
         try {
-            List<Subjects> subjects = new ArrayList<>();
-
-            for (Long subject : teachersDto.getSubjects()) {
-                Optional<Subjects> optionalSubjects = subjectRepository.findById(subject);
-                Subjects newsubject = optionalSubjects.get();
-                subjects.add(newsubject);
-            }
-
+            Optional<Subjects> optionalSubjects = subjectRepository.findById(teachersDto.getSubject());
             Optional<FileUpload> optionalFileUpload = fileUploadRepository.findById(teachersDto.getFilePhotoId());
             Optional<Teacher> optionalTeachers = teachersRepository.findById(id);
             Optional<Role> optionalRole = roleRepository.findById(teachersDto.getRole());
 
 
-            if (optionalFileUpload.isPresent() && optionalTeachers.isPresent() && optionalRole.isPresent()) {
+            if (optionalFileUpload.isPresent() && optionalTeachers.isPresent() && optionalRole.isPresent() && optionalSubjects.isPresent()) {
+                Subjects subjects = optionalSubjects.get();
                 Teacher teachers = optionalTeachers.get();
                 Role role = optionalRole.get();
 
@@ -114,9 +97,8 @@ public class TeacherService implements UserDetailsService {
                 teachers.setPassword(passwordEncoder.encode(teachersDto.getPassword()));
                 teachers.setAbout(teachersDto.getAbout());
                 teachers.setFileUpload(optionalFileUpload.get());
-                teachers.setSubjectsList(subjects);
+                teachers.setSubject(subjects);
                 teachers.setRole(role);
-
                 return ResponseEntity.status(200).body(teachers);
             }
         }

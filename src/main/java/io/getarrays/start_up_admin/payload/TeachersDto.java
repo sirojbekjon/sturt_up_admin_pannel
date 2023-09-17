@@ -1,7 +1,6 @@
 package io.getarrays.start_up_admin.payload;
 
 import lombok.Data;
-import java.util.List;
 
 @Data
 public class TeachersDto {
@@ -15,6 +14,6 @@ public class TeachersDto {
     private String about;
     private Long role;
     private Long filePhotoId;
-    private List<Long> subjects;
+    private Long subject;
 
 }

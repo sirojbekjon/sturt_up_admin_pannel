@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import java.awt.*;
 import java.util.List;
 
 @NoArgsConstructor
@@ -17,9 +18,9 @@ import java.util.List;
 public class News extends AbstractEntity {
 
        private String name;
+       @Column(columnDefinition = "Text")
+       private String text;
 
-       private TextArea text;
-
-       @OneToMany
-       private List<FileUpload> fileUploadList;
+       @ManyToOne
+       private FileUpload fileUploadList;
 }

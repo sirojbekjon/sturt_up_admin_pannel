@@ -5,6 +5,7 @@ import io.getarrays.start_up_admin.repository.TypeSubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class TypeSubjectController {
     @Autowired
     TypeSubjectRepository typeSubjectRepository;
 
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @PostMapping("/add")
     public HttpEntity<?> addTypeSubject(@RequestBody TypeSubject typeSubject){
         TypeSubject typeSubject1 = new TypeSubject(
@@ -28,13 +29,13 @@ public class TypeSubjectController {
     }
 
 
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @GetMapping("/get")
     public HttpEntity<?> getTypeSubject(){
         List<TypeSubject> typeSubjects = typeSubjectRepository.findAll();
         return ResponseEntity.status(202).body(typeSubjects);
     }
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @GetMapping("/get/{id}")
     public HttpEntity<?> getTypeSubjectById(@PathVariable Long id){
         Optional<TypeSubject> optionalTypeSubject = typeSubjectRepository.findById(id);
@@ -45,8 +46,8 @@ public class TypeSubjectController {
             return ResponseEntity.status(404).body("Not Found");
         }
     }
-
-    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
+    @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteTypeSubject(@PathVariable Long id){
         Optional<TypeSubject> optionalTypeSubject = typeSubjectRepository.findById(id);
         if (optionalTypeSubject.isPresent()){
@@ -57,7 +58,7 @@ public class TypeSubjectController {
         }
     }
 
-
+    @PreAuthorize("hasAuthority('ADD_ROLE')")
     @PutMapping("/edit/{id}")
     public HttpEntity<?> editTypeSubject(@PathVariable Long id,@RequestBody TypeSubject typeSubject){
         Optional<TypeSubject> optionalTypeSubject = typeSubjectRepository.findById(id);
