@@ -27,7 +27,7 @@ public class PartOfthemeController {
     public HttpEntity<?> addPartOfTheme(@RequestBody PartOfThemeDto partOfThemeDto){
         return partOfThemeService.addPartOfTheme(partOfThemeDto);
     }
-    @PreAuthorize("hasAuthority('ADD_POST')")
+//    @PreAuthorize("hasAuthority('ADD_POST')")
     @GetMapping("/get/{themeSubjectId}")
     public HttpEntity<?> getAllPartOftheme(@PathVariable Long themeSubjectId){
         List<PartOfTheme> partOfThemes = partOfThemeRepository.findByThemeSubject(themeSubjectId);

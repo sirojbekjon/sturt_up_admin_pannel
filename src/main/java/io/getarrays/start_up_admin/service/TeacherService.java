@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,6 +49,7 @@ public class TeacherService implements UserDetailsService {
                 optionalFileUpload.get(),
                 subjects,
                 role);
+                teachersRepository.save(teachers);
                 return ResponseEntity.status(200).body(teachers);
             }
         }
@@ -88,7 +90,6 @@ public class TeacherService implements UserDetailsService {
                 Subjects subjects = optionalSubjects.get();
                 Teacher teachers = optionalTeachers.get();
                 Role role = optionalRole.get();
-
                 teachers.setName(teachersDto.getName());
                 teachers.setSureName(teachersDto.getSureName());
                 teachers.setLastName(teachersDto.getLastname());
@@ -99,6 +100,7 @@ public class TeacherService implements UserDetailsService {
                 teachers.setFileUpload(optionalFileUpload.get());
                 teachers.setSubject(subjects);
                 teachers.setRole(role);
+                teachersRepository.save(teachers);
                 return ResponseEntity.status(200).body(teachers);
             }
         }
@@ -112,5 +114,13 @@ public class TeacherService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return teachersRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException(username+" Not found"));
 
+    }
+
+    public HttpEntity<?> getAll() {
+        List<Teacher> all = teachersRepository.findAll();
+        if (!all.isEmpty()) {
+            return ResponseEntity.status(202).body(all);
+        }
+        return ResponseEntity.status(404).body("Not found");
     }
 }

@@ -23,6 +23,7 @@ public class FileUploadController {
         return fileUploadService.upload(files);
     }
     @PreAuthorize("hasAuthority('DELETE_POST')")
+
     @DeleteMapping("/delete/{id}")
     public HttpEntity<?> dleteFile(@PathVariable Long id) throws IOException {
         return fileUploadService.deleteById(id);

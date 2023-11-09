@@ -15,6 +15,7 @@ target/
 /question
 /upload
 ### IntelliJ IDEA ###
+src/main/resources/static/upload
 .idea
 *.iws
 *.iml
@@ -29,6 +30,6 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+src/main/resources/static/upload
 ### VS Code ###
 .vscode/

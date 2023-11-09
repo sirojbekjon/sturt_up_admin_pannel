@@ -24,20 +24,22 @@ public class ThemeSubjectController {
     public HttpEntity<?> addThemeSubject(@Valid @RequestBody ThemeSubjectDto themeSubjectDto,@ApiIgnore @CurrentUser Teacher teacher){
         return themeSubjectService.addThemesubject(themeSubjectDto,teacher);
     }
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @GetMapping("/get/{subjectId}/{teacherId}")
     public HttpEntity<?> getThemeSubject(@PathVariable Long subjectId,@PathVariable Long teacherId){
         return themeSubjectService.getThemeSubject(subjectId,teacherId);
     }
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @PutMapping("/edit/{id}")
     public HttpEntity<?> editThemeSubject(@PathVariable Long id,@RequestBody ThemeSubjectDto themeSubjectDto){
         return themeSubjectService.editThemesubject(id,themeSubjectDto);
     }
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteThemeSubject(@PathVariable Long id){
         return themeSubjectService.deleteThemeSubject(id);
     }
-
 }

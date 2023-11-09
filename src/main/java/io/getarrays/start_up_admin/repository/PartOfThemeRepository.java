@@ -12,8 +12,8 @@ import java.util.List;
 public interface PartOfThemeRepository extends JpaRepository<PartOfTheme,Long> {
 
     @Query(value = "SELECT * FROM part_of_theme " +
-                   "where part_of_theme.theme_subject_id = themeSubjectId" +
-                   "order order by part_of_theme.number ASC",
+                   "where part_of_theme.theme_subject_id = :themeSubjectId " +
+                   "ORDER by part_of_theme.number ASC",
                     nativeQuery = true)
     List<PartOfTheme> findByThemeSubject(@Param("themeSubjectId") Long themeSubjectId);
 }

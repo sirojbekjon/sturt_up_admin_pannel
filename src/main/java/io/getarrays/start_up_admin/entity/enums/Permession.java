@@ -1,5 +1,7 @@
 package io.getarrays.start_up_admin.entity.enums;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public enum Permession {
     ADD_POST,
     VIEW_POST,

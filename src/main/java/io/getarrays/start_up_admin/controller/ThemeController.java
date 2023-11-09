@@ -26,6 +26,8 @@ public class ThemeController {
     public HttpEntity<?> addTheme(@RequestBody ThemeDto themeDto){
         return themeService.addtheme(themeDto);
     }
+
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @GetMapping("/get/{partOfthemeId}")
     public HttpEntity<?> getAllTheme(@PathVariable Long partOfthemeId){

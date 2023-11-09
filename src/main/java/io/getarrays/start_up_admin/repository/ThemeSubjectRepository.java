@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ThemeSubjectRepository extends JpaRepository<ThemeSubject, Long> {
         @Query(value =  "select * from theme_subject " +
-                    "where theme_subject.subjects_id = subjectId " +
-                    "and theme_subject.teacher_id = teacherId ",
+                    "where theme_subject.subject_id = :subjectId " +
+                    "and theme_subject.teacher_id = :teacherId ",
                     nativeQuery = true)
         List<ThemeSubject> getThemeSubjectBySubjectsAndTeacher(@Param("subjectId") Long subjectId,
                                                                @Param("teacherId") Long teacherId);
@@ -18,7 +18,7 @@ public interface ThemeSubjectRepository extends JpaRepository<ThemeSubject, Long
 
 
         @Query(value = "select * from theme_subject " +
-                       "where theme_subject.subject_id = subjectId" +
+                       "where theme_subject.subject_id = :subjectId" +
                        " order by theme_subject.number ASC ",
                         nativeQuery = true)
     List<ThemeSubject> findBySubjectId(@Param("subjectId") Long subjectId);
