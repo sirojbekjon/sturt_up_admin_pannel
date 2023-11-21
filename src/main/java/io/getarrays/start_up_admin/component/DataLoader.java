@@ -45,6 +45,10 @@ public class DataLoader implements CommandLineRunner {
                     Appconstants.ADMIN,
                     Arrays.asList(Permession.ADD_POST, Permession.VIEW_POST, Permession.EDIT_POST)
             ));
+            Role user = roleRepository.save(new Role(
+                    Appconstants.USER,
+                    Arrays.asList(Permession.VIEW_POST)
+            ));
 
             teachersRepository.save(new Teacher(
                     "superAdmin",

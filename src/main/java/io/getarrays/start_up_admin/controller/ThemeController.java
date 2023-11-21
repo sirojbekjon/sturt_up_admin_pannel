@@ -21,6 +21,7 @@ public class ThemeController {
 
     @Autowired
     ThemeService themeService;
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @PostMapping("/add")
     public HttpEntity<?> addTheme(@RequestBody ThemeDto themeDto){
@@ -45,7 +46,7 @@ public class ThemeController {
     }
     @PreAuthorize("hasAuthority('ADD_POST')")
     @PutMapping("/edit/{id}")
-    public HttpEntity<?> editTheme(@PathVariable Long id,ThemeDto themeDto){
+    public HttpEntity<?> editTheme(@PathVariable Long id,@RequestBody ThemeDto themeDto){
         return themeService.editTheme(id,themeDto);
     }
 

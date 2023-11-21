@@ -31,6 +31,7 @@ public class ThemeService {
         try {
             Optional<PartOfTheme> partOfThemeRepositoryById = partOfThemeRepository.findById(themeDto.getPartOfThemeId());
             Optional<FileUpload> optionalFileUpload = fileUploadRepository.findById(themeDto.getFilUploadId());
+            if (partOfThemeRepositoryById.isPresent() && optionalFileUpload.isPresent()){
             Theme theme = new Theme(
                     themeDto.getNumber(),
                     themeDto.getName(),
@@ -38,7 +39,8 @@ public class ThemeService {
                     partOfThemeRepositoryById.get(),
                     optionalFileUpload.get()
             );
-           saved = themeRepository.save(theme);
+                saved = themeRepository.save(theme);
+            }
         }catch (Exception e){
             e.getMessage();
         }
@@ -61,6 +63,7 @@ public class ThemeService {
             Theme newTheme = optionalTheme.get();
             Optional<PartOfTheme> partOfThemeRepositoryById = partOfThemeRepository.findById(themeDto.getPartOfThemeId());
             Optional<FileUpload> optionalFileUpload = fileUploadRepository.findById(themeDto.getFilUploadId());
+
             newTheme.setName(themeDto.getName());
             newTheme.setNumber(themeDto.getNumber());
             newTheme.setState(themeDto.isState());
