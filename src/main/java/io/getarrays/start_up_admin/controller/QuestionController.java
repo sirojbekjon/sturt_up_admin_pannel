@@ -37,6 +37,8 @@ public class QuestionController {
 
     @Autowired
     QuestionRepository questionRepository;
+
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @PostMapping("/add/{subjectId}/{partOfThemeId}")
     public HttpEntity<?> addQuestion(@PathVariable Long subjectId,@PathVariable Long partOfThemeId, @RequestBody MultipartFile file,@ApiIgnore @CurrentUser Teacher teacher){
@@ -100,6 +102,9 @@ public class QuestionController {
             }
             return ResponseEntity.status(202).body("Savollar saqlandi");
     }
+
+
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deleteQuestionById(@PathVariable Long id){

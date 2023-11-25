@@ -36,11 +36,23 @@ public class PartOfthemeController {
         }
         return ResponseEntity.status(409).body("Not found");
     }
+
+    @GetMapping("/get/{id}")
+    public HttpEntity<?> getById(@PathVariable Long id){
+        Optional<PartOfTheme> partOfThemes = partOfThemeRepository.findById(id);
+        if (!partOfThemes.isPresent()) {
+        return ResponseEntity.status(202).body(partOfThemes.get());
+        }
+        return ResponseEntity.status(409).body("Not found");
+    }
+
+
     @PreAuthorize("hasAuthority('ADD_POST')")
     @PutMapping("/edit/{id}")
     public HttpEntity<?> editPartOfTheme(@PathVariable Long id, @RequestBody PartOfThemeDto partOfThemeDto){
         return partOfThemeService.editPartOfTheme(id,partOfThemeDto);
     }
+
     @PreAuthorize("hasAuthority('ADD_ROLE')")
     @DeleteMapping("/delete/{id}")
     public HttpEntity<?> deletePartOfTheme(@PathVariable Long id){
