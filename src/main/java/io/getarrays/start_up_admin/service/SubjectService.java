@@ -59,11 +59,11 @@ public class SubjectService {
     }
 
 
-    public HttpEntity<?> getSubjectById(Long id, Teacher teacher) {
-        if (teacher.getSubject().getId() == id) {
-            List<ThemeSubject> themeSubjectList = themeSubjectRepository.findBySubjectId(id);
-            if (!themeSubjectList.isEmpty()) {
-                return ResponseEntity.status(202).body(themeSubjectList);
+    public HttpEntity<?> getSubjectById(Long typeId, Teacher teacher) {
+        if (teacher.getRole().getName().equals("SUPERADMIN")) {
+            List<Subjects> subjects = subjectRepository.subjectsByTypeSubjectId(typeId);
+            if (!subjects.isEmpty()) {
+                return ResponseEntity.status(202).body(subjects);
             } else {
                 return ResponseEntity.status(404).body("Not Found");
             }

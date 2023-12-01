@@ -25,10 +25,11 @@ public class SubjectController {
     public HttpEntity<?> getSubjects(){
         return subjectService.getSubject();
     }
+
     @PreAuthorize("hasAuthority('ADD_POST')")
-    @GetMapping("/get/{id}")
-    public HttpEntity<?> getSubjectById(@PathVariable Long id, @CurrentUser Teacher teacher){
-        return subjectService.getSubjectById(id,teacher);
+    @GetMapping("/getSubjects/{typeId}")
+    public HttpEntity<?> getSubjectById(@PathVariable Long typeId, @CurrentUser Teacher teacher){
+        return subjectService.getSubjectById(typeId,teacher);
     }
     @PreAuthorize("hasAuthority('ADD_ROLE')")
     @PutMapping("/edit/{id}")
