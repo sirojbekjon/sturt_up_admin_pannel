@@ -28,7 +28,7 @@ public class PartOfthemeController {
         return partOfThemeService.addPartOfTheme(partOfThemeDto);
     }
 //    @PreAuthorize("hasAuthority('ADD_POST')")
-    @GetMapping("/get/{themeSubjectId}")
+    @GetMapping("/getByThemeSubject/{themeSubjectId}")
     public HttpEntity<?> getAllPartOftheme(@PathVariable Long themeSubjectId){
         List<PartOfTheme> partOfThemes = partOfThemeRepository.findByThemeSubject(themeSubjectId);
         if (!partOfThemes.isEmpty()) {
@@ -37,7 +37,7 @@ public class PartOfthemeController {
         return ResponseEntity.status(409).body("Not found");
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/getById/{id}")
     public HttpEntity<?> getById(@PathVariable Long id){
         Optional<PartOfTheme> partOfThemes = partOfThemeRepository.findById(id);
         if (!partOfThemes.isPresent()) {
@@ -45,7 +45,6 @@ public class PartOfthemeController {
         }
         return ResponseEntity.status(409).body("Not found");
     }
-
 
     @PreAuthorize("hasAuthority('ADD_POST')")
     @PutMapping("/edit/{id}")
@@ -63,5 +62,4 @@ public class PartOfthemeController {
         }
         return ResponseEntity.status(409).body("Not deleted");
     }
-
 }

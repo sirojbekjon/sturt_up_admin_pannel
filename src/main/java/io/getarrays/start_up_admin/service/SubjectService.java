@@ -59,8 +59,8 @@ public class SubjectService {
     }
 
 
-    public HttpEntity<?> getSubjectById(Long typeId, Teacher teacher) {
-        if (teacher.getRole().getName().equals("SUPERADMIN")) {
+    public HttpEntity<?> getSubjectByTypeId(Long typeId, Teacher teacher) {
+        if (teacher.getRole().getName().equals("ADMIN")) {
             List<Subjects> subjects = subjectRepository.subjectsByTypeSubjectId(typeId);
             if (!subjects.isEmpty()) {
                 return ResponseEntity.status(202).body(subjects);
@@ -92,5 +92,10 @@ public class SubjectService {
             return ResponseEntity.status(202).body("deleted");
         }
         return ResponseEntity.status(409).body("Not deleted");
+    }
+
+    public HttpEntity<?> getSubjectById(Teacher teacher) {
+        Optional<Subjects> subjects = subjectRepository.findById(teacher.getSubject().getId());
+        return ResponseEntity.status(200).body(subjects);
     }
 }
